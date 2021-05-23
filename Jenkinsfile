@@ -10,11 +10,7 @@ pipeline {
             }
         }
         stage('clone') {
-            agent {
-                docker { image 'alpine/git' }
-            }
             steps {
-                sh 'echo Cloning..'
                 sh 'git clone https://github.com/orginux/echopod.git'
             }
         }
