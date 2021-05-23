@@ -14,7 +14,7 @@ pipeline {
                 docker { image 'alpine/git' }
             }
             steps {
-                sh 'Cloning..'
+                sh 'echo Cloning..'
                 sh 'git clone https://github.com/orginux/echopod.git'
             }
         }
