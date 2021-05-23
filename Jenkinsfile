@@ -4,6 +4,9 @@ pipeline {
     }
     stages {
         stage('test') {
+            environment {
+                GOCACHE = off
+            }
             steps {
                 sh 'go version'
                 sh 'go test'
