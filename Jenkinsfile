@@ -11,7 +11,7 @@ pipeline {
         }
         stage('clone') {
             steps {
-                sh 'git clone https://github.com/orginux/echopod.git'
+                sh 'git clone https://github.com/orginux/echopod.git || true'
             }
         }
         stage('build') {
