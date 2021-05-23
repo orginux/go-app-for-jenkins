@@ -6,5 +6,10 @@ pipeline {
                 sh 'go version'
             }
         }
+        stage('test') {
+            steps {
+                sh 'echo Hello'
+            }
+        }
     }
 }
