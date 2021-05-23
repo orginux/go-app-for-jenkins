@@ -7,8 +7,9 @@ pipeline {
             }
         }
         stage('test') {
+            agent { docker { image 'alpine/git' } }
             steps {
-                sh 'echo Hello'
+                sh 'git clone https://github.com/orginux/echopod.git'
             }
         }
     }
