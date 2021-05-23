@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('test') {
             environment {
-                GOCACHE = 'off'
+                GOCACHE = 'on'
             }
             steps {
                 sh 'whoami'
