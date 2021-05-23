@@ -8,7 +8,6 @@ pipeline {
                 GOCACHE = 'on'
             }
             steps {
-                sh 'whoami'
                 sh 'go version'
                 sh 'go test'
             }
