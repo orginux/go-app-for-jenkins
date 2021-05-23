@@ -1,14 +1,20 @@
 pipeline {
-    agent { docker { image 'golang' } }
+    agent any
     stages {
-        stage('build') {
+        stage('check') {
+            agent {
+                docker { image 'golang' }
+            }
             steps {
                 sh 'go version'
             }
         }
-        stage('test') {
-            agent { docker { image 'alpine/git' } }
+        stage('clone') {
+            agent {
+                docker { image 'alpine/git' }
+            }
             steps {
+                sh 'Cloning..'
                 sh 'git clone https://github.com/orginux/echopod.git'
             }
         }
