@@ -2,11 +2,11 @@ pipeline {
     agent {
         docker { image 'golang:1.16.4-alpine3.13' }
     }
+    environment {
+        GOCACHE = '/tmp/.cache'
+    }
     stages {
         stage('test') {
-            environment {
-                GOCACHE = '/tmp/.cache'
-            }
             steps {
                 sh 'go version'
                 sh 'go test'
