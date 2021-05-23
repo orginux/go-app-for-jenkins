@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('lint') {
             environment {
-                GOCACHE = '/tmp/.cache'
+                GOLANGCI_LINT_CACHE = '/tmp/.cache'
             }
             agent {
                 docker {
