@@ -1,30 +1,22 @@
 pipeline {
     agent any
+    tools {
+        go 'go-1.16'
+    }
     stages {
-        stage('check') {
-            agent {
-                docker { image 'golang' }
-            }
+        stage('test') {
             steps {
-                sh 'go version'
-            }
-        }
-        stage('clone') {
-            steps {
-                sh 'git clone https://github.com/orginux/echopod.git || true'
+                go test
             }
         }
         stage('build') {
-            agent {
-                docker { image 'golang' }
-            }
             environment {
-                GO111MODULE = 'off'
+                GO111MODULE = 'on'
                 CGO_ENABLED = 0
                 GOOS        = 'linux'
             }
             steps {
-                sh 'go build -o echopod'
+                sh 'go build -o webserver'
             }
         }
     }
