@@ -8,9 +8,13 @@ pipeline {
         GOCACHE = '/tmp/.cache'
     }
     stages {
-        stage('test') {
+        stage('version') {
             steps {
                 sh 'go version'
+            }
+        }
+        stage('test') {
+            steps {
                 sh 'go test'
             }
         }
