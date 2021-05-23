@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'golang:1.16.4-alpine3.13'
-        }
-    }
+    agent any
     environment {
         GOCACHE = '/tmp/.cache'
     }
@@ -19,16 +15,31 @@ pipeline {
             }
         }
         stage('version') {
+            agent {
+                docker {
+                    image 'golang:1.16.4-alpine3.13'
+                }
+            }
             steps {
                 sh 'go version'
             }
         }
         stage('test') {
+            agent {
+                docker {
+                    image 'golang:1.16.4-alpine3.13'
+                }
+            }
             steps {
                 sh 'go test'
             }
         }
         stage('build') {
+            agent {
+                docker {
+                    image 'golang:1.16.4-alpine3.13'
+                }
+            }
             environment {
                 GO111MODULE = 'on'
                 CGO_ENABLED = 0
