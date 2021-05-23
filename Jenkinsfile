@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('test') {
             environment {
-                GOCACHE = 'on'
+                GOCACHE = './cache'
             }
             steps {
                 sh 'go version'
