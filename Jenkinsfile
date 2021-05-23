@@ -20,6 +20,7 @@ pipeline {
             }
             steps {
                 sh 'go build -o hello-world'
+                sh 'ls -l'
             }
         }
     }
