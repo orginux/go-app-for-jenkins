@@ -5,6 +5,7 @@ pipeline {
     stages {
         stage('test') {
             steps {
+                sh 'go version'
                 sh 'go test'
             }
         }
