@@ -19,9 +19,9 @@ pipeline {
                 docker { image 'golang' }
             }
             environment {
-                GO111MODULE = off
+                GO111MODULE = 'off'
                 CGO_ENABLED = 0
-                GOOS        = linux
+                GOOS        = 'linux'
             }
             steps {
                 sh 'go build -o echopod'
