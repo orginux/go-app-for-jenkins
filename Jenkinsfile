@@ -1,12 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'golang:1.16.4-alpine3.13' }
+    }
     stages {
         stage('test') {
-            agent {
-                docker { image 'golang:1.16.4-alpine3.13' }
-            }
             steps {
-                go test
+                sh 'go test'
             }
         }
         stage('build') {
