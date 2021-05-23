@@ -15,7 +15,7 @@ pipeline {
                 GOOS        = 'linux'
             }
             steps {
-                sh 'go build -o webserver'
+                sh 'go build -o hello-world'
             }
         }
     }
