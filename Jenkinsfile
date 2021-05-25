@@ -26,7 +26,7 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'gofmt -d .'
+                        sh 'gofmt -e -d .'
                     }
                 }
             }
