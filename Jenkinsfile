@@ -4,17 +4,31 @@ pipeline {
         GOCACHE = '/tmp/.cache'
     }
     stages {
-        stage('lint') {
-            environment {
-                GOLANGCI_LINT_CACHE = '/tmp/.cache'
-            }
-            agent {
-                docker {
-                    image 'golangci/golangci-lint:v1.40-alpine'
+        stage('Linters') {
+            parallel {
+                stage('golangci-lint') {
+                    environment {
+                        GOLANGCI_LINT_CACHE = '/tmp/.cache'
+                    }
+                    agent {
+                        docker {
+                            image 'golangci/golangci-lint:v1.40-alpine'
+                        }
+                    }
+                    steps {
+                        sh 'golangci-lint run'
+                    }
                 }
-            }
-            steps {
-                sh 'golangci-lint run'
+                stage('go-fmt') {
+                    agent {
+                        docker {
+                            image 'golang:1.16.4-alpine3.13'
+                        }
+                    }
+                    steps {
+                        sh 'gofmt -d .'
+                    }
+                }
             }
         }
         stage('version') {
