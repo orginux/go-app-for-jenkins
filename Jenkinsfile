@@ -1,5 +1,8 @@
 pipeline {
     agent none
+    environment {
+        GOCACHE = '/tmp/.cache'
+    }
     stages {
         stage('golangci-lint') {
             agent {
@@ -20,9 +23,6 @@ pipeline {
                 docker {
                     image 'golang:1.16.4-alpine3.13'
                 }
-            }
-            environment {
-                GOCACHE = '/tmp/.cache'
             }
             stages{
                 stage('version') {
