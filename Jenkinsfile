@@ -4,66 +4,52 @@ pipeline {
         GOCACHE = '/tmp/.cache'
     }
     stages {
-        stage('Linters') {
-            parallel {
-                stage('golangci-lint') {
-                    environment {
-                        GOLANGCI_LINT_CACHE = '/tmp/.cache'
-                    }
-                    agent {
-                        docker {
-                            image 'golangci/golangci-lint:v1.40-alpine'
-                        }
-                    }
+        stage('golangci-lint') {
+            agent {
+                docker {
+                    image 'golangci/golangci-lint:v1.40-alpine'
+                }
+            }
+            environment {
+                GOLANGCI_LINT_CACHE = '/tmp/.cache'
+            }
+            steps {
+                sh 'env'
+                sh 'golangci-lint run'
+            }
+        }
+        stage("build and test the project"){
+            agent {
+                docker {
+                    image 'golang:1.16.4-alpine3.13'
+                }
+            }
+            stages{
+                stage('version') {
                     steps {
-                        sh 'golangci-lint run'
+                        sh 'go version'
                     }
                 }
                 stage('go-fmt') {
-                    agent {
-                        docker {
-                            image 'golang:1.16.4-alpine3.13'
-                        }
-                    }
                     steps {
                         sh 'gofmt -e -d .'
                     }
                 }
-            }
-        }
-        stage('version') {
-            agent {
-                docker {
-                    image 'golang:1.16.4-alpine3.13'
+                stage('test') {
+                    steps {
+                        sh 'go test'
+                    }
                 }
-            }
-            steps {
-                sh 'go version'
-            }
-        }
-        stage('test') {
-            agent {
-                docker {
-                    image 'golang:1.16.4-alpine3.13'
+                stage('build') {
+                    environment {
+                        GO111MODULE = 'on'
+                        CGO_ENABLED = 0
+                        GOOS        = 'linux'
+                    }
+                    steps {
+                        sh 'go build -o hello-world'
+                    }
                 }
-            }
-            steps {
-                sh 'go test'
-            }
-        }
-        stage('build') {
-            agent {
-                docker {
-                    image 'golang:1.16.4-alpine3.13'
-                }
-            }
-            environment {
-                GO111MODULE = 'on'
-                CGO_ENABLED = 0
-                GOOS        = 'linux'
-            }
-            steps {
-                sh 'go build -o hello-world'
             }
         }
     }
