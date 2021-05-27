@@ -25,14 +25,14 @@ pipeline {
                 GOCACHE = '/tmp/.cache'
             }
             stages{
-                stage('go-fmt') {
-                    steps {
-                        sh 'gofmt -e -d .'
-                    }
-                }
                 stage('version') {
                     steps {
                         sh 'go version'
+                    }
+                }
+                stage('go-fmt') {
+                    steps {
+                        sh 'gofmt -e -d .'
                     }
                 }
                 stage('test') {
