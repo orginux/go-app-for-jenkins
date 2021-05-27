@@ -11,6 +11,7 @@ pipeline {
                 GOLANGCI_LINT_CACHE = '/tmp/.cache'
             }
             steps {
+                sh 'env'
                 sh 'golangci-lint run'
             }
         }
