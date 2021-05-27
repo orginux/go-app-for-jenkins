@@ -20,6 +20,7 @@ pipeline {
             steps {
                 sh 'golangci-lint run'
             }
+        }
         stage('go-fmt') {
              steps {
                 sh 'gofmt -e -d .'
