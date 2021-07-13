@@ -7,7 +7,7 @@ pipeline {
         stage('golangci-lint') {
             agent {
                 docker {
-                    image 'golangci/golangci-lint:v1.40-alpine'
+                    image 'golangci/golangci-lint:v1.41-alpine'
                 }
             }
             environment {
@@ -20,7 +20,7 @@ pipeline {
         stage("build and test the project"){
             agent {
                 docker {
-                    image 'golang:1.16.4-alpine3.13'
+                    image 'golang:1.16.4-alpine3.14'
                 }
             }
             stages{
